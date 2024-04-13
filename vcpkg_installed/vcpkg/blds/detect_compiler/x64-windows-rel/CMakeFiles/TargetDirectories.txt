@@ -1,0 +1,2 @@
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/detect_compiler/x64-windows-rel/CMakeFiles/edit_cache.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/detect_compiler/x64-windows-rel/CMakeFiles/rebuild_cache.dir

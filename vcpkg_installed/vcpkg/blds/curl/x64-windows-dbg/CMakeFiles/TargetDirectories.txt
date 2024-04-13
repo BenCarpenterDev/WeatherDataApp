@@ -1,0 +1,13 @@
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/curl_uninstall.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/edit_cache.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/list_install_components.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/install.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/CMakeFiles/install/local.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/libcurl.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/curlu.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/edit_cache.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/rebuild_cache.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/list_install_components.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/install.dir
+D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/vcpkg/blds/curl/x64-windows-dbg/lib/CMakeFiles/install/local.dir

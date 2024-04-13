@@ -1,0 +1,13 @@
+prefix=D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/x64-windows/vcpkg/pkgs/zlib_x64-windows
+exec_prefix=D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/x64-windows/vcpkg/pkgs/zlib_x64-windows
+libdir=D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/x64-windows/vcpkg/pkgs/zlib_x64-windows/lib
+sharedlibdir=D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/x64-windows/vcpkg/pkgs/zlib_x64-windows/lib
+includedir=D:/03ben/Documents/Programming Projects/SDICoursework/vcpkg_installed/x64-windows/vcpkg/pkgs/zlib_x64-windows/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.3
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lzlib
+Cflags: -I${includedir}
