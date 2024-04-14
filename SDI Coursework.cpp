@@ -291,8 +291,8 @@ int main() {
                 cout << "example: 'add Nottingham'\n";
                 cout << "'remove <name>' - removes chosen location from saved\n";
                 cout << "example: 'remove Nottingham'\n";
-                cout << "'modify <locationID> <new value>' - modifies name of chosen location\n";
-                cout << "example: 'modify 2641170 ChangedNottingham'\n";
+                cout << "'modify <locationID> <new value>' - modifies data of chosen location\n";
+                cout << "example: 'modify 2641170 locationName ChangedNottingham'\n";
                 cout << "'quit' - exits application\n";
             }
         // show all saved/favourited locations
@@ -334,12 +334,93 @@ int main() {
                 for (auto& data : savedDataVector) {
                     if (data.locationID == stoi(inputs[1])) {
                         originalName = data.locationName;
-                        data.locationName = inputs[2];
+
+
+                        if (inputs[2] == "locationName") {
+                            data.locationName = inputs[3];
+                        }
+                        else if (inputs[2] == "latitude") {
+                            data.latitude = inputs[3];
+                        }
+                        else if (inputs[2] == "longitude") {
+                            data.longitude = inputs[3];
+                        }
+                        else if (inputs[2] == "time") {
+                            data.time = inputs[3];
+                        }
+                        else if (inputs[2] == "temperature") {
+                            data.temperature = inputs[3];
+                        }
+                        else if (inputs[2] == "relativeHumidity") {
+                            data.relativeHumidity = inputs[3];
+                        }
+                        else if (inputs[2] == "precipitation") {
+                            data.precipitation = inputs[3];
+                        }
+                        else if (inputs[2] == "sealevelPressure") {
+                            data.sealevelPressure = inputs[3];
+                        }
+                        else if (inputs[2] == "surfacePressure") {
+                            data.surfacePressure = inputs[3];
+                        }
+                        else if (inputs[2] == "cloudCover") {
+                            data.cloudCover = inputs[3];
+                        }
+                        else if (inputs[2] == "windSpeed") {
+                            data.windSpeed10 = inputs[3];
+                        }
+                        else if (inputs[2] == "uv") {
+                            data.uv = inputs[3];
+                        }
+                        else if (inputs[2] == "uvClear") {
+                            data.uvClear = inputs[3];
+                        }
+                        else if (inputs[2] == "isDay") {
+                            data.isDay = inputs[3];
+                        }
+                        else if (inputs[2] == "shortwave") {
+                            data.shortwave = inputs[3];
+                        }
+                        else if (inputs[2] == "directwave") {
+                            data.directwave = inputs[3];
+                        }
+                        else if (inputs[2] == "diffusewave") {
+                            data.diffusewave = inputs[3];
+                        }
+                        else if (inputs[2] == "pressTemp") {
+                            data.pressTemp = inputs[3];
+                        }
+                        else if (inputs[2] == "pressHumid") {
+                            data.pressHumid = inputs[3];
+                        }
+                        else if (inputs[2] == "pressCloud") {
+                            data.pressCloud = inputs[3];
+                        }
+                        else if (inputs[2] == "sunrise") {
+                            data.sunrise = inputs[3];
+                        }
+                        else if (inputs[2] == "sunset") {
+                            data.sunset = inputs[3];
+                        }
+                        else if (inputs[2] == "setTemp") {
+                            data.setTemp = inputs[3];
+                        }
+                        else if (inputs[2] == "setWind") {
+                            data.setWind = inputs[3];
+                        }
+                        else if (inputs[2] == "setZone") {
+                            data.setZone = inputs[3];
+                        }
+                        else {
+                            std::cout << "Invalid member." << std::endl;
+                        }
+
+
                         break;
                     }
                 }
                 
-                cout << ", "+originalName+" changed to "+inputs[2];
+                cout << originalName+"'s "+inputs[2] + " changed to " + inputs[3];
                 cout << "\n-----------------------------------------\n";
             }
 
