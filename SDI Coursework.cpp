@@ -318,6 +318,21 @@ int main() {
                 cout << "\n-----------------------------------------\n";
             }
 
+        // modify saved locations
+            else if (inputs[0] == "modify") {//change Nottingham
+                string originalName;
+                for (auto& data : savedDataVector) {
+                    if (data.locationID == stoi(inputs[1])) {
+                        originalName = data.locationName;
+                        data.locationName = inputs[2];
+                        break;
+                    }
+                }
+                
+                cout << ", "+originalName+" changed to "+inputs[2];
+                cout << "\n-----------------------------------------\n";
+            }
+
         // quit program
             else if (inputs[0] == "quit") {
                 break;
@@ -333,12 +348,6 @@ int main() {
 
 
     return 0;
-
-    //location id, location name, latitude, longitude
-    
-    //Hourly ((temperature, precipitation, pressure, wind, humidity, and cloudiness)
-    // solar radiation, pressure levels
-
 }
 
 
