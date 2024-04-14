@@ -211,7 +211,7 @@ std::vector<WeatherData> getWeatherData(string name) {
             bool parsingSuccessful = reader.parse(responseBuffer, root);
             if (parsingSuccessful) {
                 // Weather Attributes
-                int timeIndex = 14;//2pm
+                int timeIndex = 14;//2pm, can change time inteval with this integer
 
                 string weatherLatitude = root["latitude"].asString();
                 string weatherLongitude = root["longitude"].asString();
