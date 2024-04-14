@@ -3,4 +3,5 @@ Weather Data Application for software design &amp; implementation coursework, 2n
 
 Libraries Required:
 JsonCPP - https://github.com/open-source-parsers/jsoncpp
+
 Curl - https://curl.se/docs/
