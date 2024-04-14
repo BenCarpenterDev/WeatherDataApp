@@ -13,7 +13,8 @@
 
 using namespace std;
 
-struct WeatherData {// for storing weatherdata in a vector
+class WeatherData {
+public:
     int locationID;
     string locationName;
     string latitude;
@@ -28,7 +29,7 @@ struct WeatherData {// for storing weatherdata in a vector
     string surfacePressure;
     string cloudCover;
     string windSpeed10;
- 
+
     //additional variables
     string uv;
     string uvClear;
@@ -53,6 +54,24 @@ struct WeatherData {// for storing weatherdata in a vector
     string setWind;
     string setZone;
 
+    WeatherData(int id, string name, string weatherLatitude, string weatherLongitude,
+        string hourlyTime, string hourlyTemperature, string hourlyHumidity, string hourlyPrecipitation,
+        string hourlySeaPressure, string hourlySurfacePressure, string hourlyCloudCover, string hourlyWindSpeed,
+        string adUV, string adUVclear, string adisDay,
+        string srShort, string srDirect, string srDiff,
+        string prTemp, string prHumid, string prCloud,
+        string daSunrise, string daSunset,
+        string setTemp, string setWind, string setZone)
+
+        : locationID(id), locationName(name), latitude(weatherLatitude), longitude(weatherLongitude),
+        time(hourlyTime), temperature(hourlyTemperature), relativeHumidity(hourlyHumidity),
+        precipitation(hourlyPrecipitation), sealevelPressure(hourlySeaPressure),
+        surfacePressure(hourlySurfacePressure), cloudCover(hourlyCloudCover),
+        windSpeed10(hourlyWindSpeed), uv(adUV), uvClear(adUVclear), isDay(adisDay),
+        shortwave(srShort), directwave(srDirect), diffusewave(srDiff),
+        pressTemp(prTemp), pressHumid(prHumid), pressCloud(prCloud),
+        sunrise(daSunrise), sunset(daSunset),
+        setTemp(setTemp), setWind(setWind), setZone(setZone) {}
 };
 
 struct geoData {
@@ -257,11 +276,6 @@ int main() {
     
 
     std::vector<WeatherData> savedDataVector;
-
-    savedDataVector.push_back({ 0, "TestLocation", "50", "76" });
-    savedDataVector.push_back({ 1, "TestLocationAnother", "24", "32" });
-
-
 
     bool UserCommand = true;
 
