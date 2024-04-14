@@ -279,12 +279,22 @@ int main() {
         int id = savedDataVector.size() + 1;
 
 
-        
         if (find(commands.begin(), commands.end(), inputs[0]) != commands.end())
             if (inputs[0] == "help") {
-                cout << "Here are help commands\n";
+                cout << "\n| SHOWING AVAILABLE COMMANDS |";
+                cout << "\n-----------------------------------------\n";
+                cout << "'help' - shows all commands\n";
+                cout << "'saved' - shows saved locations\n";
+                cout << "'search <name>' - searches for a location and displays result\n";
+                cout << "example: search Nottingham\n";
+                cout << "'add <name>' - saves chosen location\n";
+                cout << "example: 'add Nottingham'\n";
+                cout << "'remove <name>' - removes chosen location from saved\n";
+                cout << "example: 'remove Nottingham'\n";
+                cout << "'modify <locationID> <new value>' - modifies name of chosen location\n";
+                cout << "example: 'modify 2641170 ChangedNottingham'\n";
+                cout << "'quit' - exits application\n";
             }
-
         // show all saved/favourited locations
             else if (inputs[0] == "saved") {
                 cout << "\n| SHOWING FAVOURITED LOCATIONS |";
