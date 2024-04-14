@@ -24,16 +24,35 @@ struct WeatherData {// for storing weatherdata in a vector
     string temperature;
     string relativeHumidity;
     string precipitation;
-
     string sealevelPressure;
     string surfacePressure;
     string cloudCover;
-
     string windSpeed10;
-    /*
-    std::string windSpeed80;
-    std::string windSpeed120;
-    std::string windSpeed180;*/
+ 
+    //additional variables
+    string uv;
+    string uvClear;
+    string isDay;
+
+    //solar radiation variables
+    string shortwave;
+    string directwave;
+    string diffusewave;
+
+    //pressure level variables
+    string pressTemp;
+    string pressHumid;
+    string pressCloud;
+
+    //daily weather variables
+    string sunrise;
+    string sunset;
+
+    //Settings
+    string setTemp;
+    string setWind;
+    string setZone;
+
 };
 
 struct geoData {
@@ -44,21 +63,47 @@ struct geoData {
 };
 
 void printWeatherData(const std::vector<WeatherData>& dataVector, int index) {
+
     cout << "\nLocationID: " << dataVector[index].locationID;
     cout << "\nLocation: " << dataVector[index].locationName;
     cout << "\nLatitude: " << dataVector[index].latitude;
     cout << "\nLongitude: " << dataVector[index].longitude;
-
     cout << "\nTime by Hour: " << dataVector[index].time;
+
+    cout << "\n\n| Hourly Data |";
     cout << "\nTemperature: " << dataVector[index].temperature;
     cout << "\nRelative Humidity: " << dataVector[index].relativeHumidity;
     cout << "\nPrecipitation: " << dataVector[index].precipitation;
-
     cout << "\nSea Level Pressure: " << dataVector[index].sealevelPressure;
     cout << "\nSurface Pressure: " << dataVector[index].surfacePressure;
     cout << "\nCloud Cover: " << dataVector[index].cloudCover;
     cout << "\nWind Speed at 10 metres: " << dataVector[index].windSpeed10;
-    cout << "\n \n";
+
+    cout << "\n\n| Additional Data |";
+    cout << "\nUV Index: " << dataVector[index].uv;
+    cout << "\nUV Index Clear Sky: " << dataVector[index].uvClear;
+    cout << "\nDay or Night: " << dataVector[index].isDay;
+
+    cout << "\n\n| Solar Radiation Data |";
+    cout << "\nShortwave: " << dataVector[index].shortwave;
+    cout << "\nDirect: " << dataVector[index].directwave;
+    cout << "\nDiffuse: " << dataVector[index].diffusewave;
+
+    cout << "\n\n| Pressure Level Data (500hPa)|";
+    cout << "\nTemperature: " << dataVector[index].pressTemp;
+    cout << "\nRelative Humidity: " << dataVector[index].pressHumid;
+    cout << "\nCloud Cover: " << dataVector[index].pressCloud;
+
+    cout << "\n\n| Daily Weather Data |";
+    cout << "\nSunrise: " << dataVector[index].sunrise;
+    cout << "\nSunset: " << dataVector[index].sunset;
+
+    cout << "\n\n| Current Units |";
+    cout << "\nTemperature: " << dataVector[index].setTemp;
+    cout << "\nWind Speed: " << dataVector[index].setWind;
+    cout << "\nTime Zone: " << dataVector[index].setZone;
+    cout << "\n-----------------------------------------\n";
+
 };
 
 vector<string> commands{ "quit", "help", "add", "remove", "modify", "search", "saved"};
@@ -131,9 +176,8 @@ std::vector<WeatherData> getWeatherData(string name) {
     if (curl) {
         // Set the URL you want to request
         string apiKey = "YOUR_API_KEY"; // Replace with your Open-Meteo API key
-        string url = "https://api.open-meteo.com/v1/forecast?latitude="+latitude+"&longitude="+longitude+"&current=temperature_2m&hourly=temperature_2m,relative_humidity_2m,precipitation,pressure_msl,surface_pressure,cloud_cover,wind_speed_10m,wind_speed_80m,wind_speed_120m,wind_speed_180m&forecast_days=1";
+        string url = "https://api.open-meteo.com/v1/forecast?latitude="+latitude+"&longitude="+longitude+"&hourly=temperature_2m,relative_humidity_2m,precipitation,pressure_msl,surface_pressure,cloud_cover,wind_speed_10m,shortwave_radiation,direct_radiation,diffuse_radiation,uv_index,uv_index_clear_sky,is_day,temperature_500hPa,relative_humidity_500hPa,cloud_cover_500hPa&daily=sunrise,sunset,rain_sum&forecast_days=1&models=best_match,gfs_global";
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &responseBuffer);
 
@@ -148,23 +192,53 @@ std::vector<WeatherData> getWeatherData(string name) {
             bool parsingSuccessful = reader.parse(responseBuffer, root);
             if (parsingSuccessful) {
                 // Weather Attributes
+                int timeIndex = 14;//2pm
 
                 string weatherLatitude = root["latitude"].asString();
                 string weatherLongitude = root["longitude"].asString();
+                string hourlyTime = root["hourly"]["time"][timeIndex].asString();
 
-                string hourlyTime = root["hourly"]["time"][0].asString();
-                string hourlyTemperature = root["hourly"]["temperature_2m"][0].asString();
-                string hourlyHumidity = root["hourly"]["relative_humidity_2m"][0].asString();
-                string hourlyPrecipitation = root["hourly"]["precipitation"][0].asString();
-                string hourlySeaPressure = root["hourly"]["pressure_msl"][0].asString();
-                string hourlySurfacePressure = root["hourly"]["surface_pressure"][0].asString();
-                string hourlyCloudCover = root["hourly"]["cloud_cover"][0].asString();
-                string hourlyWindSpeed = root["hourly"]["wind_speed_10m"][0].asString();
+                //Hourly Data
+                string hourlyTemperature = root["hourly"]["temperature_2m_best_match"][timeIndex].asString();
+                string hourlyHumidity = root["hourly"]["relative_humidity_2m_best_match"][timeIndex].asString();
+                string hourlyPrecipitation = root["hourly"]["precipitation_best_match"][timeIndex].asString();
+                string hourlySeaPressure = root["hourly"]["pressure_msl_best_match"][timeIndex].asString();
+                string hourlySurfacePressure = root["hourly"]["surface_pressure_best_match"][timeIndex].asString();
+                string hourlyCloudCover = root["hourly"]["cloud_cover_best_match"][timeIndex].asString();
+                string hourlyWindSpeed = root["hourly"]["wind_speed_10m_best_match"][timeIndex].asString();
+
+                //Additional
+                string adUV = root["hourly"]["uv_index_best_match"][timeIndex].asString();
+                string adUVclear = root["hourly"]["uv_index_clear_sky_best_match"][timeIndex].asString();
+                string adisDay = root["hourly"]["is_day_best_match"][timeIndex].asString();
+                
+                //Solar Radiation
+                string srShort = root["hourly"]["shortwave_radiation_best_match"][timeIndex].asString();
+                string srDirect = root["hourly"]["direct_radiation_best_match"][timeIndex].asString();
+                string srDiff = root["hourly"]["diffuse_radiation_best_match"][timeIndex].asString();
+
+                //Pressure Level
+                string prTemp = root["hourly"]["temperature_500hPa_best_match"][timeIndex].asString();
+                string prHumid = root["hourly"]["relative_humidity_500hPa_best_match"][timeIndex].asString();
+                string prCloud = root["hourly"]["cloud_cover_500hPa_best_match"][timeIndex].asString();
+
+                //Daily Weather
+                string daSunrise = root["daily"]["sunrise_best_match"][0].asString();
+                string daSunset = root["daily"]["sunset_best_match"][0].asString();
+
+                //Settings
+                string setTemp = root["hourly_units"]["temperature_2m_best_match"].asString();
+                string setWind = root["hourly_units"]["wind_speed_10m_best_match"].asString();
+                string setZone = root["timezone"].asString();
 
                 std::vector<WeatherData> TempVector;
 
-                TempVector.push_back({ id, locationName, weatherLatitude, weatherLongitude, hourlyTime, hourlyTemperature,
-                    hourlyHumidity, hourlyPrecipitation, hourlySeaPressure, hourlySurfacePressure, hourlyCloudCover, hourlyWindSpeed });
+                TempVector.push_back({ 
+                    id, locationName, weatherLatitude, weatherLongitude, hourlyTime, hourlyTemperature,
+                    hourlyHumidity, hourlyPrecipitation, hourlySeaPressure, hourlySurfacePressure, hourlyCloudCover, hourlyWindSpeed,
+                    adUV, adUVclear, adisDay, srShort, srDirect, srDiff, prTemp, prHumid, prCloud, daSunrise, daSunset,
+                    setTemp, setWind, setZone
+                    });
 
                 return TempVector;
             }
@@ -178,7 +252,8 @@ std::vector<WeatherData> getWeatherData(string name) {
 int main() {
     cout << "| WELCOME TO BEN'S WEATHER DATA APPLICATION |";
     cout << "\n-----------------------------------------\n";
-    cout << "Input 'help' for commands\n\n";
+    cout << "\nWeather model is set to Best Match";
+    cout << "\nEnter 'help' for commands\n\n";
     
 
     std::vector<WeatherData> savedDataVector;
@@ -222,7 +297,7 @@ int main() {
         // Search and print weather data by longitude and latitude
             else if (inputs[0] == "search") {
                 cout << "\n| SEARCH RESULTS |";
-                cout << "\n-----------------------------------------\n";
+                cout << "\n-----------------------------------------";
                 printWeatherData(getWeatherData(inputs[1]), 0);//search Nottingham
             }
 
